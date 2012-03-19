@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 name = "bit.recipe.python_for_android"
-version = '0.0.1'
+version = '0.0.2'
 setup(
     name=name,
     version=version,
