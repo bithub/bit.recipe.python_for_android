@@ -1,7 +1,7 @@
 
 
-BUILDOUT_DIR=`pwd`
-PARTS=$BUILDOUT_DIR/parts
+BUILDOUT=`pwd`
+PARTS=$BUILDOUT/parts
 
 case "$1" in
     install)
@@ -23,6 +23,12 @@ case "$1" in
 	;;
     build)
 	echo building
+	cd $PARTS/$PROJECT/dist/default
+	if [ $2X != X ]; then
+	    ./build.py --package $PACKAGE --name "$APPNAME" --version $VERSION  --orientation $ORIENTATION --permission $PERMISSIONS --dir $PUBLIC --private $PRIVATE $@
+	else
+	    ./build.py --package $PACKAGE --name "$APPNAME" --version $VERSION  --orientation $ORIENTATION --permission $PERMISSIONS --dir $PUBLIC --private $PRIVATE
+	fi
 	;;
 	*)
 	echo "Usage: $0 {dist|build}" >&2

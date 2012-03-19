@@ -1,5 +1,4 @@
 
-
 With this package you can add projects to your buildout for cross-compiling android packages
 
 You will need a copy of the android sdk and ndks for your project environments
@@ -25,16 +24,18 @@ ndk = http://dl.google.com/android/ndk/android-ndk-r7-linux-x86.tar.bz2
 
 [my_kivy]
 recipe = bit.recipe.python_for_android
-src = git@github.com:phlax/python-for-android -b kivy
-sdk = parts/my_android_sdk
-ndk = parts/my_android_ndk
+package = org.bitfoundation.my_kivy
+src = git@github.com:kivy/python-for-android
+sdk = parts/android_sdk
+ndk = parts/android_ndk
 ndk_version = r7
 api = 8
 recipes = kivy
 version = 0.0.1
-public = var/kivy/public
-private = var/kivy/private
+public = var/my_kivy/public
+private = var/my_kivy/private
 orientation = portrait
+permissions = INTERNET
 
 
 This could then be installed as follows
@@ -50,7 +51,7 @@ Once you have done this you can create your distribution
 ./bin/my_kivy dist
 
 
-And build your android package
+And build and install your android package
 
-./bin/my_kivy build
+./bin/my_kivy build debug installd
 
