@@ -1,5 +1,5 @@
 
-With this package you can add projects to your buildout for cross-compiling android packages
+This package allows you to build python-based android packages from a buildout environment
 
 You will need a copy of the android sdk and ndks for your project environments
 
