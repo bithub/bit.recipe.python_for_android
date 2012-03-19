@@ -1,0 +1,37 @@
+
+
+BUILDOUT_DIR=`pwd`
+PARTS=$BUILDOUT_DIR/parts
+
+source bin/android_sdk
+source bin/android_ndk
+
+case "$1" in
+    install)
+	if [ ! -d  $PARTS/$PROJECT ]; then
+	    echo installing
+	    git clone $GIT_SRC $PARTS/$PROJECT
+	else
+	    echo "already installed"	    
+	fi
+	;;
+    dist)
+	echo distributing
+	cd $PARTS/$PROJECT
+	if [ $2X != X ]; then
+	    ./distribute.sh -m "$RECIPES"  $@
+	else
+	    ./distribute.sh -m "$RECIPES"  dist
+	fi
+	;;
+    build)
+	echo building
+	;;
+	*)
+	echo "Usage: $0 {dist|build}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
+
