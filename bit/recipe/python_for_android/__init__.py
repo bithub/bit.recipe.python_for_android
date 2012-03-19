@@ -31,6 +31,7 @@ class Recipe:
                     }
         bash += '\n'.join(['export %s=%s' % (k, v)
                           for k, v in env_vars.items()])
+        bash += '\n'
         env_vars = {'BUILDOUT': path,
                     'GIT_SRC': o['src'],
                     'RECIPES': '"%s"' % o['recipes'],
