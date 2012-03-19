@@ -23,13 +23,17 @@ class Recipe:
         if self.name in os.listdir('bin'):
             os.unlink(target_install)
         o = self.options
-        env_vars = {'BUILDOUT': path,
-                    'ANDROIDSDK': sdk,
+        bash = '#!/bin/bash\n'        
+        env_vars = {'ANDROIDSDK': sdk,
                     'ANDROIDNDK': ndk,
                     'ANDROIDNDKVER': ndk_version,
                     'ANDROIDAPI': api,
+                    }
+        bash += '\n'.join(['export %s=%s' % (k, v)
+                          for k, v in env_vars.items()])
+        env_vars = {'BUILDOUT': path,
                     'GIT_SRC': o['src'],
-                    'RECIPES': o['recipes'],
+                    'RECIPES': '"%s"' % o['recipes'],
                     'PROJECT': self.name,
                     'PACKAGE': o['package'],
                     'APPNAME': self.name,
@@ -39,15 +43,21 @@ class Recipe:
                     'PRIVATE': o['private'],
                     'PUBLIC': o['public'],
                     }
-        bash = '#/bin/bash\n'
         bash += '\n'.join(['%s=%s' % (k, v)
                           for k, v in env_vars.items()])
         open(target_install, 'w').write(bash + open(install).read())
         commands.getoutput('chmod +x %s' % target_install)
 
+    def _install(self):
+        path = os.getcwd()
+        target_install = os.path.join(path, 'bin', self.name)
+        print commands.getoutput('%s install' % target_install)
+
     def install(self):
         self._update()
+        self._install()
         return ['bin/%s' % self.name]
 
     def update(self):
+        self._install()
         self._update()
