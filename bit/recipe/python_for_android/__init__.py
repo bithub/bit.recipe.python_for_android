@@ -23,7 +23,7 @@ class Recipe:
         if self.name in os.listdir('bin'):
             os.unlink(target_install)
         o = self.options
-        bash = '#!/bin/bash\n'        
+        bash = '#!/bin/bash\n'
         env_vars = {'ANDROIDSDK': sdk,
                     'ANDROIDNDK': ndk,
                     'ANDROIDNDKVER': ndk_version,
