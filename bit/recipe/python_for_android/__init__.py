@@ -14,9 +14,14 @@ class Recipe:
         install = pkg_resources.resource_filename(__name__, 'python_for_android')
         path = os.getcwd()
         target_install = os.path.join('bin',self.name)
+        sdk = os.path.join(path,self.options['sdk'])
+        ndk = os.path.join(path, self.options['ndk'])
+        api = self.options['api']
+        ndk_version = self.options['ndk_version']
         if self.name in os.listdir('bin'):
             os.unlink(target_install)
-        open(target_install,'w').write('#/bin/bash\nGIT_SRC="%s"\nRECIPES="%s"\nPROJECT=%s' %(self.options['src'],self.options['recipes'],self.name)+open(install).read())
+
+        open(target_install,'w').write('#/bin/bash\nexport ANDROIDSDK=%s\nexport ANDROIDNDK=%s\nexport ANDROIDNDKVER=%s\nexport ANDROIDAPI=%s\nexport PATH=$ANDROIDSDK/tools:$ANDROIDNDK:$PATH\nGIT_SRC="%s"\nRECIPES="%s"\nPROJECT=%s' %(sdk,ndk,ndk_version,api,self.options['src'],self.options['recipes'],self.name)+open(install).read())
         commands.getoutput('chmod +x %s' %target_install)        
             
     def install(self):
