@@ -14,7 +14,8 @@ case "$1" in
     dist)
 	echo distributing
 	cd $PARTS/$PROJECT
-	if [ $2X != X ]; then
+	shift
+	if [ $@X != X ]; then
 	    ./distribute.sh -m "$RECIPES"  $@
 	else
 	    ./distribute.sh -m "$RECIPES"  dist
@@ -23,17 +24,13 @@ case "$1" in
     build)
 	echo building
 	cd $PARTS/$PROJECT/dist/default
-	if [ $2X != X ]; then
-	    ./build.py --package $PACKAGE --name "$APPNAME" --version $VERSION  --orientation $ORIENTATION --permission $PERMISSIONS --dir $PUBLIC --private $PRIVATE $@
-	else
-	    ./build.py --package $PACKAGE --name "$APPNAME" --version $VERSION  --orientation $ORIENTATION --permission $PERMISSIONS --dir $PUBLIC --private $PRIVATE
-	fi
+	shift
+	./build.py --package $PACKAGE --name "$APPNAME" --version $VERSION  --orientation $ORIENTATION --permission $PERMISSIONS --dir $PUBLIC --private $PRIVATE $@
 	;;
 	*)
-	echo "Usage: $0 {dist|build}" >&2
+	echo "Usage: $0 {install|dist|build}" >&2
 	exit 1
 	;;
 esac
 
 exit 0
-
