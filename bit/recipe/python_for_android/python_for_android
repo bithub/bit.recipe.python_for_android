@@ -1,6 +1,5 @@
 
 
-BUILDOUT=`pwd`
 PARTS=$BUILDOUT/parts
 
 case "$1" in

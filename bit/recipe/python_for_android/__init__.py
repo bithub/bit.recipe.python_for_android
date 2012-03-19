@@ -41,8 +41,8 @@ class Recipe:
                     'VERSION': o['version'],
                     'ORIENTATION': o['orientation'],
                     'PERMISSIONS': o['permissions'],
-                    'PRIVATE': o['private'],
-                    'PUBLIC': o['public'],
+                    'PRIVATE': os.path.realpath(o['private']),
+                    'PUBLIC': os.path.realpath(o['public']),
                     }
         bash += '\n'.join(['%s=%s' % (k, v)
                           for k, v in env_vars.items()])
