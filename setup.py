@@ -10,7 +10,7 @@ setup(
     description="bitfoundation python_for_android recipe",
     license="GPL",
     keywords="buildout",
-    url='http://www.python.org/pypi/' + name,
+    url='http://github.com/bitf/' + name,
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['bit', 'bit.recipe'],
     include_package_data=True,
