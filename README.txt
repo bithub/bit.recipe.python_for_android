@@ -1,4 +1,3 @@
-
 bit.recipe.python_for_android
 =============================
 
@@ -59,4 +58,45 @@ You can do a clean install or pass other arguments to the distribute.sh script, 
 Place your public/private resources into the folders specified ie: var/my_kivy/public, and build and install your android package
 
 ./bin/my_kivy build debug installd
+
+
+
+Installing
+==========
+
+The following instructions are for a recent version of Ubuntu or Debian Wheezy.
+
+Its not possible to run the default python-for-android environment on Debian Squeeze due to an outdated Cython version, although its possible to create a custom version of Cython with your buildout
+
+This package may work on other platforrms with the necessary dependencies
+
+
+Install dependencies
+
+ # apt-get install build-essential python-dev
+
+
+Install virtualenv
+
+ # apt-get install virtualenv
+
+
+Create your buildout environment
+
+ # mkdir android
+ # cd android
+ # virtualenv --no-site-packages .
+ # wget bootsrap.py
+
+
+Create a file called buildout.cfg containing a configuration similar to example provided above
+
+Run bootstrap
+
+ # ./bin/python bootstrap.py
+
+
+Finally, run buildout
+
+ # ./bin/buildout
 
